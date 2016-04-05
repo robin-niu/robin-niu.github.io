@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何在无法获取IP的环境中配置VirtualBox的网络 | Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:url" content="http://robin-niu.github.io/2016/03/30/virtualbox-net-setting-in-office/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:updated_time" content="2016-04-05T12:39:47.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta name="twitter:description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+  
+    <link rel="alternative" href="/atom.xml" title="Robin" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Robin.Niu</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">生命不息，奋斗不止</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                            <li><a href="/tags">静心阅读</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/robin-niu" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/CentOS/" style="font-size: 10px;">CentOS</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/centos/" style="font-size: 10px;">centos</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hadoop/" style="font-size: 10px;">hadoop</a> <a href="/tags/virtualbox/" style="font-size: 15px;">virtualbox</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Robin.Niu</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Robin.Niu</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">生命不息，奋斗不止</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                    <li><a href="/tags">静心阅读</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/robin-niu" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-virtualbox-net-setting-in-office" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/30/virtualbox-net-setting-in-office/" class="article-date">
+      <time datetime="2016-03-30T07:20:57.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何在无法获取IP的环境中配置VirtualBox的网络
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/virtualbox/">virtualbox</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/virtualbox/">virtualbox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="如何在无法获取IP的环境中配置VirtualBox的网络"><a href="#如何在无法获取IP的环境中配置VirtualBox的网络" class="headerlink" title="如何在无法获取IP的环境中配置VirtualBox的网络"></a>如何在无法获取IP的环境中配置VirtualBox的网络</h2><h3 id="背景介绍："><a href="#背景介绍：" class="headerlink" title="背景介绍："></a><em>背景介绍：</em></h3><p>公司网络不能自动获取IP和指定IP设置，因此无法使用<code>Bridge</code>方式访问,所以只能使用<code>NAT</code>方式访问，但是<code>NAT</code>方式又无法实现主机与虚拟机的互通，作为Hadoop分布式环境的构建，各个节点间的互通又是必须的。</p>
+<h3 id="设定方法"><a href="#设定方法" class="headerlink" title="设定方法:"></a><em>设定方法:</em></h3><p>基于后文的解释，设定如下：</p>
+<h4 id="NameNode节点设置两块网卡"><a href="#NameNode节点设置两块网卡" class="headerlink" title="NameNode节点设置两块网卡"></a>NameNode节点设置两块网卡</h4><blockquote>
+<p>网卡1：<code>NAT</code>方式，实现虚拟机通过主机网卡访问外网<br>网卡2：<code>Host-Only</code>方式，实现主机与虚拟机之间互通</p>
+</blockquote>
+<p><strong><em>\</em>注意：*</strong> 虚拟机的<strong>网卡2</strong>的IP地址需要与主机的<code>VirtualBox Host-Only Network</code>的IP地址设定到同一个网段，这样才能保持主机与虚拟机的互通。<br>这里<code>网卡2</code>没有设置为<code>Internal</code>方式的原因是，<code>Internal</code>方式无法与主机互通，操作上会有不方便的地方，故使用<code>Host-Only</code>方式。</p>
+<h4 id="各个Slave节点设置一块网卡"><a href="#各个Slave节点设置一块网卡" class="headerlink" title="各个Slave节点设置一块网卡"></a>各个Slave节点设置一块网卡</h4><blockquote>
+<p>网卡：<code>Host-Only</code>方式，实现主机与虚拟机之间互通</p>
+</blockquote>
+<p>各个Slave节点可以不访问因特网，只需要保持与NameNode节点互通，同时保持与主机Host互通（操作方便）即可。</p>
+<h4 id="详细IP设定如下："><a href="#详细IP设定如下：" class="headerlink" title="详细IP设定如下："></a>详细IP设定如下：</h4><ul>
+<li>Host（主机）：192.168.56.1（默认）</li>
+<li>NameNode：192.168.56.100（手动设定） </li>
+<li>SlaveNode： 192.168.56.101~开始即可（手动设定）<br><em>\</em> Slave节点的IP设置可以具体根据需要的节点数来分配*</li>
+</ul>
+<blockquote>
+<p>关于Hadoop的配置，后续会整理上来<br>配置环境基于本次整理的虚拟机环境（1个NameNode，2个SlaveNode</p>
+</blockquote>
+<hr>
+<p><strong>以下解释摘自<a href="https://www.douban.com/group/topic/15558388/" target="_blank" rel="external">豆瓣网</a></strong></p>
+<h3 id="VirtualBox的提供了四种网络接入模式，它们分别是："><a href="#VirtualBox的提供了四种网络接入模式，它们分别是：" class="headerlink" title="VirtualBox的提供了四种网络接入模式，它们分别是："></a>VirtualBox的提供了四种网络接入模式，它们分别是：</h3><ol>
+<li>NAT 网络地址转换模式(NAT,Network Address Translation) </li>
+<li>Bridged Adapter 桥接模式 </li>
+<li>Internal 内部网络模式 </li>
+<li>Host-only Adapter 主机模式 </li>
+</ol>
+<h3 id="第一种-NAT模式"><a href="#第一种-NAT模式" class="headerlink" title="第一种 NAT模式"></a>第一种 NAT模式</h3><p>NAT模式是最简单的实现虚拟机上网的方式，你可以这样理解：Vhost访问网络的所有数据都是由主机提供的，vhost并不真实存在于网络中，主机与网络中的任何机器都不能查看和访问到Vhost的存在。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  只能单向访问，虚拟机可以通过网络访问到主机，主机无法通过网络访问到虚拟机。</li>
+<li>虚拟机与网络中其他主机的关系：<br>  只能单向访问，虚拟机可以访问到网络中其他主机，其他主机不能通过网络访问到虚拟机。 </li>
+<li>虚拟机与虚拟机之间的关系：<br>  相互不能访问，虚拟机与虚拟机各自完全独立，相互间无法通过网络访问彼此。 </li>
+</ul>
+<h3 id="第二种-Bridged-Adapter模式"><a href="#第二种-Bridged-Adapter模式" class="headerlink" title="第二种 Bridged Adapter模式"></a>第二种 Bridged Adapter模式</h3><p>网桥模式的模拟度相当完美。你可以这样理解，它是通过主机网卡，架设了一条桥，直接连入到网络中了。<br>因此，它使得虚拟机能被分配到一个网络中独立的IP，所有网络功能完全和在网络中的真实机器一样。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  可以相互访问，因为虚拟机在真实网络段中有独立IP，主机与虚拟机处于同一网络段中，彼此可以通过各自IP相互访问。 </li>
+<li>虚拟机于网络中其他主机关系：<br>  可以相互访问，同样因为虚拟机在真实网络段中有独立IP，虚拟机与所有网络其他主机处于同一网络段中，彼此可以通过各自IP相互访问。 </li>
+<li>虚拟机于虚拟机关系：<br>  可以相互访问，原因同上。<br>IP：一般是DHCP分配的，与主机的“本地连接”的IP 是同一网段的。虚拟机就能与主机互相通信。 </li>
+</ul>
+<h3 id="第三种-Internal模式"><a href="#第三种-Internal模式" class="headerlink" title="第三种 Internal模式"></a>第三种 Internal模式</h3><p>内网模式，顾名思义就是内部网络模式，虚拟机与外网完全断开，只实现虚拟机于虚拟机之间的内部网络模式。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  不能相互访问，彼此不属于同一个网络，无法相互访问。 </li>
+<li>虚拟机与网络中其他主机关系：<br>  不能相互访问，理由同上。 </li>
+<li>虚拟机与虚拟机关系：<br>  可以相互访问，前提是在设置网络时，两台虚拟机设置同一网络名称。如上配置图中，名称为intnet。<br>IP: VirtualBox的DHCP服务器会为它分配IP ，一般得到的是192.168.56.101，因为是从101起分的，也可手工指定192.168.56.*。 </li>
+</ul>
+<h3 id="第四种-Host-only-Adapter模式"><a href="#第四种-Host-only-Adapter模式" class="headerlink" title="第四种 Host-only Adapter模式"></a>第四种 Host-only Adapter模式</h3><p>主机模式，这是一种比较复杂的模式，需要有比较扎实的网络基础知识才能玩转。可以说前面几种模式所实现的功能，在这种模式下，通过虚拟机及网卡的设置都可以被实现。<br>我们可以理解为Vbox在主机中模拟出一张专供虚拟机使用的网卡，所有虚拟机都是连接到该网卡上的，我们可以通过设置这张网卡来实现上网及其他很多功能，比如（网卡共享、网卡桥接等）。<br>虚拟机与主机关系<br>默认不能相互访问，双方不属于同一IP段，host-only网卡默认IP段为192.168.56.X 子网掩码为255.255.255.0，后面的虚拟机被分配到的也都是这个网段。<br>通过网卡共享、网卡桥接等，可以实现虚拟机于主机相互访问。 </p>
+<ul>
+<li>虚拟机与网络主机关系<br>  默认不能相互访问，原因同上，通过设置，可以实现相互访问。 </li>
+<li>虚拟机与虚拟机关系<br>  默认可以相互访问，都是同处于一个网段。 </li>
+<li>虚拟机访问主机 用的是主机的VirtualBox Host-Only                     Network网卡的IP：192.168.56.1 ，不管主机“本地连接”有无红叉，永远通。 </li>
+</ul>
+<p>主机访问虚拟机，用是的虚拟机的网卡3的IP： 192.168.56.101 ，不管主机“本地连接”有无红叉，永远通。<br>虚拟机访问互联网，用的是自己的网卡2， 这时主机要能通过“本地连接”有线上网，（无线网卡不行） </p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/03/30/virtualbox-net-setting-in-office/">如何在无法获取IP的环境中配置VirtualBox的网络</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Robin.Niu 的个人博客">Robin.Niu</a></p>
+        <p><span>发布时间:</span>2016年03月30日 - 15时20分</p>
+        <p><span>最后更新:</span>2016年04月05日 - 20时39分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/30/virtualbox-net-setting-in-office/" title="如何在无法获取IP的环境中配置VirtualBox的网络">http://robin-niu.github.io/2016/03/30/virtualbox-net-setting-in-office/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://robin-niu.github.io/2016/03/30/virtualbox-net-setting-in-office/　　作者: Robin.Niu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2016/03/31/Addition-Tools-for-CentOS7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/24/Deployer-not-found-github/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo发布错误：Deployer not found:github</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何在无法获取IP的环境中配置VirtualBox的网络"><span class="toc-number">1.</span> <span class="toc-text">如何在无法获取IP的环境中配置VirtualBox的网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景介绍："><span class="toc-number">1.1.</span> <span class="toc-text">背景介绍：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设定方法"><span class="toc-number">1.2.</span> <span class="toc-text">设定方法:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NameNode节点设置两块网卡"><span class="toc-number">1.2.1.</span> <span class="toc-text">NameNode节点设置两块网卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#各个Slave节点设置一块网卡"><span class="toc-number">1.2.2.</span> <span class="toc-text">各个Slave节点设置一块网卡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#详细IP设定如下："><span class="toc-number">1.2.3.</span> <span class="toc-text">详细IP设定如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VirtualBox的提供了四种网络接入模式，它们分别是："><span class="toc-number">1.3.</span> <span class="toc-text">VirtualBox的提供了四种网络接入模式，它们分别是：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一种-NAT模式"><span class="toc-number">1.4.</span> <span class="toc-text">第一种 NAT模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二种-Bridged-Adapter模式"><span class="toc-number">1.5.</span> <span class="toc-text">第二种 Bridged Adapter模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三种-Internal模式"><span class="toc-number">1.6.</span> <span class="toc-text">第三种 Internal模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四种-Host-only-Adapter模式"><span class="toc-number">1.7.</span> <span class="toc-text">第四种 Host-only Adapter模式</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/03/31/Addition-Tools-for-CentOS7/" title="上一篇: VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/03/24/Deployer-not-found-github/" title="下一篇: Hexo发布错误：Deployer not found:github">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/04/05/install-Hexo-on-CentOS7/">在CentOS7上安装Hexo</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/31/Addition-Tools-for-CentOS7/">VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/30/virtualbox-net-setting-in-office/">如何在无法获取IP的环境中配置VirtualBox的网络</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/24/Deployer-not-found-github/">Hexo发布错误：Deployer not found:github</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/20/Hexo-usage/">Hexo 使用方法</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Robin.Niu
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 21;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+  </div>
+</body>
+</html>
