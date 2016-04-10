@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>在CentOS7上安装Hexo | Robin</title>
+  <title>在CentOS7中安装Scrapy框架 | Robin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍如何在CentOS7上安装Hexo">
+  <meta name="description" content="介绍如何在CentOS7上安装Scrapy框架">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在CentOS7上安装Hexo">
-<meta property="og:url" content="http://robin-niu.github.io/2016/04/05/install-Hexo-on-CentOS7/index.html">
+<meta property="og:title" content="在CentOS7中安装Scrapy框架">
+<meta property="og:url" content="http://robin-niu.github.io/2016/04/10/install-scrapy-on-centos7/index.html">
 <meta property="og:site_name" content="Robin">
-<meta property="og:description" content="介绍如何在CentOS7上安装Hexo">
-<meta property="og:updated_time" content="2016-04-05T12:39:47.826Z">
+<meta property="og:description" content="介绍如何在CentOS7上安装Scrapy框架">
+<meta property="og:updated_time" content="2016-04-10T13:15:05.688Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在CentOS7上安装Hexo">
-<meta name="twitter:description" content="介绍如何在CentOS7上安装Hexo">
+<meta name="twitter:title" content="在CentOS7中安装Scrapy框架">
+<meta name="twitter:description" content="介绍如何在CentOS7上安装Scrapy框架">
   
     <link rel="alternative" href="/atom.xml" title="Robin" type="application/atom+xml">
   
@@ -175,11 +175,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-install-Hexo-on-CentOS7" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-install-scrapy-on-centos7" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/05/install-Hexo-on-CentOS7/" class="article-date">
-      <time datetime="2016-04-05T06:54:11.000Z" itemprop="datePublished">2016-04-05</time>
+      <a href="/2016/04/10/install-scrapy-on-centos7/" class="article-date">
+      <time datetime="2016-04-10T13:08:37.000Z" itemprop="datePublished">2016-04-10</time>
 </a>
     </div>
   
@@ -192,7 +192,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      在CentOS7上安装Hexo
+      在CentOS7中安装Scrapy框架
     </h1>
   
 
@@ -201,13 +201,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+    <a class="article-category-link" href="/categories/Python/">Python</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scrapy/">Scrapy</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -217,26 +217,24 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h3><h4 id="准备命令"><a href="#准备命令" class="headerlink" title="准备命令"></a>准备命令</h4><p><code>$ yum -y install gcc make gcc-c++ openssl-devel wget</code></p>
-<h4 id="下载源码及解压"><a href="#下载源码及解压" class="headerlink" title="下载源码及解压"></a>下载源码及解压</h4><p><code>$ wget http://nodejs.org/dist/v0.10.31/node-v0.10.31.tar.gz</code><br><code>$ tar -zxvf node-v0.10.31.tar.gz</code></p>
-<h4 id="检查Python版本"><a href="#检查Python版本" class="headerlink" title="检查Python版本"></a>检查Python版本</h4><p><code>$ python --version</code><br>需要检查下Python的版本，必须在2.6及以上才可以，如果低于这个版本我们还需要安装Python</p>
-<h4 id="编译及安装"><a href="#编译及安装" class="headerlink" title="编译及安装"></a>编译及安装</h4><h5 id="Python设置"><a href="#Python设置" class="headerlink" title="Python设置"></a>Python设置</h5><p><strong>如果Python安装的不是默认目录，或者Python的可执行文件名字不是标准名称，还需要先Export一下Python的安装目录</strong></p>
-<blockquote>
-<p>export PYTHON=/path/to/python<br>$PYTHON ./configure</p>
-</blockquote>
-<h5 id="No-Module-named-bz2-出错"><a href="#No-Module-named-bz2-出错" class="headerlink" title="No Module named bz2 出错"></a>No Module named bz2 出错</h5><blockquote>
-<p>ImportError: No module named bz2<br>make[1]: *** [/home/robin/Downloads/node-v0.10.31/out/Release/obj/gen/libraries.cc] Error 1<br>make[1]: Leaving directory `/home/robin/Downloads/node-v0.10.31/out’<br>make: *** [node] Error 2<br>python没有bz2扩展，安装下bz2后，再重新安装下python。  </p>
-<p><code>$ yum install -y bzip2*</code><br><code>$ cd /usr/dev/Python-2.7.11/</code><br><code>$ ./configure &amp;&amp; make &amp;&amp; make install</code></p>
-</blockquote>
-<p><code>$ ./configure &amp;&amp; make &amp;&amp; make install</code></p>
-<p>如果安装配置出现权限不足问题，可使用<code>sudo</code>以root权限安装，如果觉得麻烦，那就是直接<code>su - root</code>以root用户来安装。<br><code>$ sudo ./configure &amp;&amp; sudo make &amp;&amp; sudo make install</code></p>
-<h4 id="验证是否安装配置成功"><a href="#验证是否安装配置成功" class="headerlink" title="验证是否安装配置成功"></a>验证是否安装配置成功</h4><p><code>$ node -v</code></p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>安装完Nodejs框架后，就可以直接使用<code>npm</code>方式来安装HEXO了。</p>
-<p><code>$ npm install -g hexo</code></p>
-<blockquote>
-<p><strong>-g</strong> 的目的是可以全局使用Hexo</p>
-</blockquote>
-<h3 id="使用Hexo"><a href="#使用Hexo" class="headerlink" title="使用Hexo"></a>使用Hexo</h3><p>请参照<a href="http://robin-niu.github.io/2016/03/24/hello-world/">Hexo 使用方法</a></p>
+        <h3 id="在CentOS7中安装Scrapy框架"><a href="#在CentOS7中安装Scrapy框架" class="headerlink" title="在CentOS7中安装Scrapy框架"></a>在CentOS7中安装Scrapy框架</h3><h4 id="安装setuptools"><a href="#安装setuptools" class="headerlink" title="安装setuptools"></a>安装setuptools</h4><p><code># wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py</code><br><code># python ez_setup.py --insecure</code></p>
+<h4 id="下载安装pip"><a href="#下载安装pip" class="headerlink" title="下载安装pip"></a>下载安装pip</h4><p>pip类似RedHat里面的yum，安装Python包非常方便。本节详细介绍pip的安装、以及使用方法。</p>
+<ol>
+<li><p>下载pip：<br><code># wget &quot;https://pypi.python.org/packages/source/p/pip/pip-1.5.4.tar.gz#md5=834b2904f92d46aaa333267fb1c922bb&quot; --no-check-certificate</code></p>
+</li>
+<li><p>pip安装<br><code># tar -xzvf pip-1.5.4.tar.gz</code><br><code># cd pip-1.5.4</code><br><code># python setup.py install</code></p>
+</li>
+<li><p>安装安装其他包时，提示：【fatal error: Python.h: No such file or directory】<br>解决办法：安装python-dev包，在CentOS中叫<code>python-devel</code>，可以使用下面的命令即可安装python-dev:<br><code># yum install python-devel</code></p>
+</li>
+</ol>
+<h4 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h4><ol>
+<li><p>安装Scrapy依赖包：Twisted<br><code># pip install Twisted</code></p>
+</li>
+<li><p>安装Scrapy<br><code># pip install scrapy</code></p>
+</li>
+<li><p>测试安装<br><code># scrapy version</code><br><code>Scrapy 1.0.5</code></p>
+</li>
+</ol>
 
       
     </div>
@@ -245,13 +243,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/04/05/install-Hexo-on-CentOS7/">在CentOS7上安装Hexo</a></p>
+        <p><span>本文标题:</span><a href="/2016/04/10/install-scrapy-on-centos7/">在CentOS7中安装Scrapy框架</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Robin.Niu 的个人博客">Robin.Niu</a></p>
-        <p><span>发布时间:</span>2016年04月05日 - 14时54分</p>
-        <p><span>最后更新:</span>2016年04月05日 - 20时39分</p>
+        <p><span>发布时间:</span>2016年04月10日 - 21时08分</p>
+        <p><span>最后更新:</span>2016年04月10日 - 21时15分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/04/05/install-Hexo-on-CentOS7/" title="在CentOS7上安装Hexo">http://robin-niu.github.io/2016/04/05/install-Hexo-on-CentOS7/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://robin-niu.github.io/2016/04/05/install-Hexo-on-CentOS7/　　作者: Robin.Niu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/04/10/install-scrapy-on-centos7/" title="在CentOS7中安装Scrapy框架">http://robin-niu.github.io/2016/04/10/install-scrapy-on-centos7/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://robin-niu.github.io/2016/04/10/install-scrapy-on-centos7/　　作者: Robin.Niu" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -264,18 +262,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2016/04/10/install-scrapy-on-centos7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          在CentOS7中安装Scrapy框架
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/31/Addition-Tools-for-CentOS7/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法</div>
+    <a href="/2016/04/05/install-Hexo-on-CentOS7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在CentOS7上安装Hexo</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -286,7 +275,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装NodeJS"><span class="toc-number">1.</span> <span class="toc-text">安装NodeJS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备命令"><span class="toc-number">1.1.</span> <span class="toc-text">准备命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载源码及解压"><span class="toc-number">1.2.</span> <span class="toc-text">下载源码及解压</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#检查Python版本"><span class="toc-number">1.3.</span> <span class="toc-text">检查Python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译及安装"><span class="toc-number">1.4.</span> <span class="toc-text">编译及安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Python设置"><span class="toc-number">1.4.1.</span> <span class="toc-text">Python设置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#No-Module-named-bz2-出错"><span class="toc-number">1.4.2.</span> <span class="toc-text">No Module named bz2 出错</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证是否安装配置成功"><span class="toc-number">1.5.</span> <span class="toc-text">验证是否安装配置成功</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-number">2.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Hexo"><span class="toc-number">3.</span> <span class="toc-text">使用Hexo</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#在CentOS7中安装Scrapy框架"><span class="toc-number">1.</span> <span class="toc-text">在CentOS7中安装Scrapy框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装setuptools"><span class="toc-number">1.1.</span> <span class="toc-text">安装setuptools</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载安装pip"><span class="toc-number">1.2.</span> <span class="toc-text">下载安装pip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Scrapy"><span class="toc-number">1.3.</span> <span class="toc-text">安装Scrapy</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -351,13 +340,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/04/10/install-scrapy-on-centos7/" title="上一篇: 在CentOS7中安装Scrapy框架">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2016/03/31/Addition-Tools-for-CentOS7/" title="下一篇: VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法">
+            <a href="/2016/04/05/install-Hexo-on-CentOS7/" title="下一篇: 在CentOS7上安装Hexo">
                 <i class="fa fa-angle-right"></i>
             </a>
         
