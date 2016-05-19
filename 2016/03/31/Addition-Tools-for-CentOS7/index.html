@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://robin-niu.github.io/2016/03/31/Addition-Tools-for-CentOS7/index.html">
 <meta property="og:site_name" content="Robin">
 <meta property="og:description" content="在安装VirtualBox增强插件时，提示编译错误的解决办法">
-<meta property="og:updated_time" content="2016-05-11T23:04:38.689Z">
+<meta property="og:updated_time" content="2016-05-19T12:55:33.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法">
 <meta name="twitter:description" content="在安装VirtualBox增强插件时，提示编译错误的解决办法">
@@ -87,14 +87,10 @@
 </blockquote>
 <p>查看<code>/var/log/vboxadd-install.log</code>后，找到最先出错的地方：</p>
 <blockquote>
-<p>grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry<br>make KBUILD_VERBOSE=1<br><a id="more"></a></p>
-<h3 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h3><ul>
-<li>VirtualBox：4.3.12</li>
-<li>VirtualBox增强插件版本：4.3.20</li>
-<li>系统版本：Windows7</li>
-<li>虚拟机系统版本：CentOS7</li>
-</ul>
+<p>grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry<br>make KBUILD_VERBOSE=1 </p>
 </blockquote>
+<a id="more"></a>
+<h3 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h3><p>-VirtualBox：4.3.12<br>-VirtualBox增强插件版本：4.3.20<br>-系统版本：Windows7<br>-虚拟机系统版本：CentOS7</p>
 <h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><p>本来安装VirtualBox最新的5.0.6版本，但是Windows7操作系统出现无法启动Session的错误，<br>搜索后，在Stackoverflow上找到了答案，因为使用的VirtualBox版本太新，然后就退到使用当前的4.3.12<br>结果就出现增强插件版本安装不上。</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用稍微新一点的增强插件即可解决这个问题，但是不要太新，<br>所以就选择了4.3.20，作为目标版本。<br>问题顺利解决。</p>
 <hr>
