@@ -48,7 +48,7 @@
       <nav id="sub-nav">
         <div id="search-form-wrap">
           <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
-        </div>
+		</div>
       </nav>
     </div>
   </div>
@@ -181,14 +181,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="错误现象-（一）"><a href="#错误现象-（一）" class="headerlink" title="错误现象 （一）"></a>错误现象 （一）</h2><h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：</p>
-<blockquote>
-<p>Building the VirtualBox Guest Additions kernel modules [FAILED]<br>Your system does not seem to be set up to build kernel modules.<br>Look at /var/log/vboxadd-install.log to find out what went wrong.<br>Once you have corrected it, you can run /etc/init.d/vboxadd setup to build them. </p>
-</blockquote>
-<p>查看<code>/var/log/vboxadd-install.log</code>后，找到最先出错的地方：</p>
-<blockquote>
-<p>grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry<br>make KBUILD_VERBOSE=1 </p>
-</blockquote>
+        <h2 id="错误现象-（一）"><a href="#错误现象-（一）" class="headerlink" title="错误现象 （一）"></a>错误现象 （一）</h2><h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Building the VirtualBox Guest Additions kernel modules [FAILED] </span><br><span class="line">Your system does not seem to be <span class="built_in">set</span> up to build kernel modules. </span><br><span class="line">Look at /var/<span class="built_in">log</span>/vboxadd-install.log to find out what went wrong. </span><br><span class="line">Once you have corrected it, you can run /etc/init.d/vboxadd setup to build them.</span><br></pre></td></tr></table></figure></p>
+<p>查看<code>/var/log/vboxadd-install.log</code>后，找到最先出错的地方：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry</span><br><span class="line">make KBUILD_VERBOSE=1</span><br></pre></td></tr></table></figure></p>
         
           <p class="article-more-link">
             <a href="/2016/03/31/Addition-Tools-for-CentOS7/#more">Read More</a>
@@ -362,7 +356,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 Robin.Niu&nbsp;
+      &copy; 2016 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
     </div>
   </div>

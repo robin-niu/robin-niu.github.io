@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://robin-niu.github.io/2016/03/31/Addition-Tools-for-CentOS7/index.html">
 <meta property="og:site_name" content="Robin">
 <meta property="og:description" content="在安装VirtualBox增强插件时，提示编译错误的解决办法">
-<meta property="og:updated_time" content="2016-05-19T12:55:33.032Z">
+<meta property="og:updated_time" content="2016-05-19T13:02:52.409Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法">
 <meta name="twitter:description" content="在安装VirtualBox增强插件时，提示编译错误的解决办法">
@@ -49,7 +49,7 @@
       <nav id="sub-nav">
         <div id="search-form-wrap">
           <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
-        </div>
+		</div>
       </nav>
     </div>
   </div>
@@ -81,26 +81,23 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="错误现象-（一）"><a href="#错误现象-（一）" class="headerlink" title="错误现象 （一）"></a>错误现象 （一）</h2><h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：</p>
-<blockquote>
-<p>Building the VirtualBox Guest Additions kernel modules [FAILED]<br>Your system does not seem to be set up to build kernel modules.<br>Look at /var/log/vboxadd-install.log to find out what went wrong.<br>Once you have corrected it, you can run /etc/init.d/vboxadd setup to build them. </p>
-</blockquote>
-<p>查看<code>/var/log/vboxadd-install.log</code>后，找到最先出错的地方：</p>
-<blockquote>
-<p>grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry<br>make KBUILD_VERBOSE=1 </p>
-</blockquote>
+        <h2 id="错误现象-（一）"><a href="#错误现象-（一）" class="headerlink" title="错误现象 （一）"></a>错误现象 （一）</h2><h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Building the VirtualBox Guest Additions kernel modules [FAILED] </span><br><span class="line">Your system does not seem to be <span class="built_in">set</span> up to build kernel modules. </span><br><span class="line">Look at /var/<span class="built_in">log</span>/vboxadd-install.log to find out what went wrong. </span><br><span class="line">Once you have corrected it, you can run /etc/init.d/vboxadd setup to build them.</span><br></pre></td></tr></table></figure></p>
+<p>查看<code>/var/log/vboxadd-install.log</code>后，找到最先出错的地方：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep: /lib/modules/3.10.0-327.10.1.el7.x86_64/build/include/linux/version.h: No such file or direcotry</span><br><span class="line">make KBUILD_VERBOSE=1</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h3 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h3><p>-VirtualBox：4.3.12<br>-VirtualBox增强插件版本：4.3.20<br>-系统版本：Windows7<br>-虚拟机系统版本：CentOS7</p>
+<h3 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h3><ul>
+<li>VirtualBox：4.3.12</li>
+<li>VirtualBox增强插件版本：4.3.20</li>
+<li>系统版本：Windows7</li>
+<li>虚拟机系统版本：CentOS7</li>
+</ul>
 <h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><p>本来安装VirtualBox最新的5.0.6版本，但是Windows7操作系统出现无法启动Session的错误，<br>搜索后，在Stackoverflow上找到了答案，因为使用的VirtualBox版本太新，然后就退到使用当前的4.3.12<br>结果就出现增强插件版本安装不上。</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用稍微新一点的增强插件即可解决这个问题，但是不要太新，<br>所以就选择了4.3.20，作为目标版本。<br>问题顺利解决。</p>
 <hr>
-<h2 id="错误现象-（二）"><a href="#错误现象-（二）" class="headerlink" title="错误现象 （二）"></a>错误现象 （二）</h2><h3 id="错误现象-1"><a href="#错误现象-1" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：<br>Building the OpenGL support module                         [FAILED]<br>(Look at /var/log/vboxadd-install.log to find out what went wrong)</p>
+<h2 id="错误现象-（二）"><a href="#错误现象-（二）" class="headerlink" title="错误现象 （二）"></a>错误现象 （二）</h2><h3 id="错误现象-1"><a href="#错误现象-1" class="headerlink" title="错误现象"></a>错误现象</h3><p>安装出现如下错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Building the OpenGL support module                         [FAILED]</span><br><span class="line">(Look at /var/<span class="built_in">log</span>/vboxadd-install.log to find out what went wrong)</span><br></pre></td></tr></table></figure></p>
 <p>导致无法使用<strong>自动调整窗口大小（Auto-resize Guest Display)</strong>的功能，只能使用小窗口</p>
 <h3 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h3><p>再次提高插件的版本到<code>VirtualBox-4.3.36-105129-Win</code><br>直接解决。</p>
 <hr>
-<h2 id="错误现象-（三）"><a href="#错误现象-（三）" class="headerlink" title="错误现象 （三）"></a>错误现象 （三）</h2><h3 id="错误现象-2"><a href="#错误现象-2" class="headerlink" title="错误现象"></a>错误现象</h3><blockquote>
-<p>Warning: unknown version of the X Window System installed.  Not installingX Window System drivers.</p>
-</blockquote>
+<h2 id="错误现象-（三）"><a href="#错误现象-（三）" class="headerlink" title="错误现象 （三）"></a>错误现象 （三）</h2><h3 id="错误现象-2"><a href="#错误现象-2" class="headerlink" title="错误现象"></a>错误现象</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: unknown version of the X Window System installed.  Not installingX Window System drivers.</span><br></pre></td></tr></table></figure>
 <h3 id="错误原因-1"><a href="#错误原因-1" class="headerlink" title="错误原因"></a>错误原因</h3><p>VirtualBox的版本太低，不支持<strong>X Windows 1.11</strong><br>更新版本就可以了。<br>将插件更新到<code>VirtualBox-4.3.36-105129-Win</code>就可以了。</p>
 <h3 id="其他一些问题的解决办法"><a href="#其他一些问题的解决办法" class="headerlink" title="其他一些问题的解决办法"></a>其他一些问题的解决办法</h3><p>另外还搜索到其他一些依赖的包没有安装上的原因，直接安装上就好了：</p>
 <ul>
@@ -149,7 +146,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2016 Robin.Niu&nbsp;
+      &copy; 2016 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
     </div>
   </div>
