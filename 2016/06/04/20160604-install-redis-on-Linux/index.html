@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Linux下Redis服务器安装配置 - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Linux下Redis服务器安装配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下Redis服务器安装配置">
+<meta property="og:url" content="http://robin-niu.github.io/2016/06/04/20160604-install-redis-on-Linux/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="Linux下Redis服务器安装配置">
+<meta property="og:updated_time" content="2016-06-04T12:03:45.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下Redis服务器安装配置">
+<meta name="twitter:description" content="Linux下Redis服务器安装配置">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20160604-install-redis-on-Linux" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux下Redis服务器安装配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/06/04/20160604-install-redis-on-Linux/" class="article-date">
+  <time datetime="2016-06-04T11:45:05.000Z" itemprop="datePublished">2016-06-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Redis/">Redis</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h4><p>操作系统：CentOS<br>所需软件：tcl redis </p>
+<a id="more"></a>
+<h4 id="1、安装编译工具"><a href="#1、安装编译工具" class="headerlink" title="1、安装编译工具"></a>1、安装编译工具</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget  make gcc gcc-c++ zlib-devel openssl openssl-devel pcre-devel kernel keyutils  patch perl</span><br></pre></td></tr></table></figure>
+<h4 id="2、安装tcl组件包（安装Redis需要tcl支持）"><a href="#2、安装tcl组件包（安装Redis需要tcl支持）" class="headerlink" title="2、安装tcl组件包（安装Redis需要tcl支持）"></a>2、安装tcl组件包（安装Redis需要tcl支持）</h4><p>下载：<a href="http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz" target="_blank" rel="external">http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz</a></p>
+<p>上传tcl8.6.1-src.tar.gz到<code>/usr/local/src</code>目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src <span class="comment">#进入软件包存放目录</span></span><br><span class="line"></span><br><span class="line">tar  zxvf  tcl8.6.1-src.tar.gz  <span class="comment">#解压</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> tcl8.6.1 <span class="comment">#进入安装目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> unix</span><br><span class="line"></span><br><span class="line">./configure --prefix=/usr   --without-tzdata    --mandir=/usr/share/man $([ $(uname -m) = x86_64 ] &amp;&amp; <span class="built_in">echo</span> --enable-64bit)   <span class="comment">#配置</span></span><br><span class="line"></span><br><span class="line">make <span class="comment">#编译</span></span><br><span class="line"></span><br><span class="line">sed <span class="_">-e</span> <span class="string">"s@^\(TCL_SRC_DIR='\).*@\1/usr/include'@"</span>  <span class="_">-e</span> <span class="string">"/TCL_B/s@='\(-L\)\?.*unix@='\1/usr/lib@"</span>  -i tclConfig.sh</span><br><span class="line"></span><br><span class="line">make install  <span class="comment">#安装</span></span><br><span class="line"></span><br><span class="line">make install-private-headers</span><br><span class="line"></span><br><span class="line">ln -v -sf tclsh8.6 /usr/bin/tclsh</span><br><span class="line"></span><br><span class="line">chmod -v 755 /usr/lib/libtcl8.6.so</span><br></pre></td></tr></table></figure>
+<h4 id="3、安装Redis"><a href="#3、安装Redis" class="headerlink" title="3、安装Redis"></a>3、安装Redis</h4><p>下载：<a href="http://download.redis.io/redis-stable.tar.gz" target="_blank" rel="external">http://download.redis.io/redis-stable.tar.gz</a></p>
+<p>上传redis-stable到/usr/local/src目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src</span><br><span class="line"></span><br><span class="line">tar -zxvf redis-stable.tar.gz <span class="comment">#解压</span></span><br><span class="line"></span><br><span class="line">mv redis-stable  /usr/<span class="built_in">local</span>/redis <span class="comment">#移动文件到安装目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/redis  <span class="comment">#进入安装目录</span></span><br><span class="line"></span><br><span class="line">make <span class="comment">#编译</span></span><br><span class="line"></span><br><span class="line">make install <span class="comment">#安装</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span>  /usr/<span class="built_in">local</span>/bin <span class="comment">#查看是否有下面文件，如果没有，拷贝下面文件到/usr/local/bin目录</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/redis</span><br><span class="line"></span><br><span class="line">mkdir -p /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">cp -p redis-server /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">cp -p redis-benchmark /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">cp -p redis-cli /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">cp -p redis-check-dump /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">cp -p redis-check-aof /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">ln <span class="_">-s</span>  /usr/<span class="built_in">local</span>/redis/redis.conf  /etc/redis.conf  <span class="comment">#添加配置文件软连接</span></span><br><span class="line"></span><br><span class="line">vi /etc/redis.conf  <span class="comment">#编辑</span></span><br><span class="line"></span><br><span class="line">daemonize yes  <span class="comment">#设置后台启动redis</span></span><br><span class="line"></span><br><span class="line">:wq! <span class="comment">#保存退出</span></span><br><span class="line"></span><br><span class="line">redis-server /etc/redis.conf  <span class="comment">#启动redis服务</span></span><br><span class="line"></span><br><span class="line">redis-cli shutdown  <span class="comment">#关闭redis</span></span><br><span class="line"></span><br><span class="line">vi /etc/sysctl.conf <span class="comment">#编辑，在最后一行添加下面代码</span></span><br><span class="line"></span><br><span class="line">vm.overcommit_memory = 1</span><br><span class="line"></span><br><span class="line">:wq! <span class="comment">#保存退出</span></span><br><span class="line"></span><br><span class="line">sysctl -p <span class="comment">#使设置立即生效</span></span><br></pre></td></tr></table></figure>
+<h4 id="4、设置redis开机启动"><a href="#4、设置redis开机启动" class="headerlink" title="4、设置redis开机启动"></a>4、设置redis开机启动</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/init.d/redis   <span class="comment">#编辑，添加以下代码</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment"># 设置redis开机启动</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 90 10</span></span><br><span class="line"><span class="comment"># description: Redis is a persistent key-value database</span></span><br><span class="line"><span class="comment"># redis Startup script for redis processes</span></span><br><span class="line"><span class="comment"># processname: redis</span></span><br><span class="line"></span><br><span class="line">redis_path=<span class="string">"/usr/local/bin/redis-server"</span></span><br><span class="line">redis_conf=<span class="string">"/etc/redis.conf"</span></span><br><span class="line">redis_pid=<span class="string">"/var/run/redis.pid"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Source function library.</span></span><br><span class="line">. /etc/rc.d/init.d/<span class="built_in">functions</span></span><br><span class="line">[ -x <span class="variable">$&#123;redis_path&#125;</span> ] || <span class="built_in">exit</span> 0</span><br><span class="line"></span><br><span class="line">RETVAL=0</span><br><span class="line">prog=<span class="string">"redis"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Start daemons.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start</span></span>()&#123;</span><br><span class="line"><span class="keyword">if</span> [ <span class="_">-e</span> <span class="variable">$&#123;redis_pid&#125;</span> <span class="_">-a</span> ! -z <span class="variable">$&#123;redis_pid&#125;</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$&#123;prog&#125;</span><span class="string">" already running..."</span></span><br><span class="line">	<span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">echo</span> -n $<span class="string">"Starting <span class="variable">$&#123;prog&#125;</span>"</span></span><br><span class="line"><span class="comment"># Single instance for all caches</span></span><br><span class="line"><span class="variable">$&#123;redis_path&#125;</span> <span class="variable">$&#123;redis_conf&#125;</span></span><br><span class="line"></span><br><span class="line">RETVAL=$?</span><br><span class="line">[ <span class="variable">$&#123;RETVAL&#125;</span> <span class="_">-eq</span> 0 ] &amp;&amp; &#123;</span><br><span class="line">	touch /var/lock/subsys/<span class="variable">$&#123;prog&#125;</span></span><br><span class="line">	success $<span class="string">"<span class="variable">$&#123;prog&#125;</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> </span><br><span class="line"></span><br><span class="line"><span class="built_in">return</span> <span class="variable">$&#123;RETVAL&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stop daemons.</span></span><br><span class="line"><span class="function"><span class="title">stop</span></span>()&#123;</span><br><span class="line"><span class="built_in">echo</span> -n $<span class="string">"Stopping <span class="variable">$&#123;prog&#125;</span>"</span></span><br><span class="line">killproc <span class="_">-d</span> 10 <span class="variable">$&#123;redis_path&#125;</span></span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line"></span><br><span class="line">[ <span class="variable">$&#123;RETVAL&#125;</span> = 0 ] &amp;&amp; rm <span class="_">-f</span> <span class="variable">$&#123;redis_pid&#125;</span> /var/lock/subsys/<span class="variable">$&#123;prog&#125;</span></span><br><span class="line"></span><br><span class="line">RETVAL=$?</span><br><span class="line"></span><br><span class="line"><span class="built_in">return</span> <span class="variable">$&#123;RETVAL&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># See how we were called.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$&#123;1&#125;</span>"</span> <span class="keyword">in</span></span><br><span class="line">start)</span><br><span class="line">	start</span><br><span class="line">	;;</span><br><span class="line">stop)</span><br><span class="line">	stop</span><br><span class="line">	;;</span><br><span class="line">status)</span><br><span class="line">	status <span class="variable">$&#123;prog&#125;</span></span><br><span class="line">	;;</span><br><span class="line">restart)</span><br><span class="line">	stop</span><br><span class="line">	start</span><br><span class="line">	;;</span><br><span class="line">condrestart)</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">test</span> <span class="string">"x`pidof redis`"</span> != <span class="string">"x"</span>; <span class="keyword">then</span></span><br><span class="line">	stop</span><br><span class="line">	start</span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	;;</span><br><span class="line">*)</span><br><span class="line">	<span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|status|restart|condrestart&#125;"</span></span><br><span class="line">	<span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="variable">$&#123;RETVAL&#125;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">:wq! <span class="comment">#保存退出</span></span><br><span class="line"></span><br><span class="line">chmod 755 /etc/init.d/redis  <span class="comment">#添加脚本执行权限</span></span><br><span class="line"></span><br><span class="line">chkconfig --add redis  <span class="comment">#添加开启启动</span></span><br><span class="line"></span><br><span class="line">chkconfig --level 2345 redis on  <span class="comment">#设置启动级别</span></span><br><span class="line"></span><br><span class="line">chkconfig --list redis  <span class="comment">#查看启动级别</span></span><br><span class="line"></span><br><span class="line">service redis restart  <span class="comment">#重新启动redis</span></span><br></pre></td></tr></table></figure>
+<h4 id="5、设置redis配置文件参数"><a href="#5、设置redis配置文件参数" class="headerlink" title="5、设置redis配置文件参数"></a>5、设置redis配置文件参数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/<span class="built_in">local</span>/redis/var  <span class="comment">#创建redis数据库存放目录</span></span><br><span class="line"></span><br><span class="line">vi /etc/redis.conf  <span class="comment">#编辑</span></span><br><span class="line"></span><br><span class="line">daemonize yes  <span class="comment">#以后台daemon方式运行redis</span></span><br><span class="line"></span><br><span class="line">pidfile <span class="string">"/var/run/redis.pid"</span>  <span class="comment">#redis以后台运行，默认pid文件路径/var/run/redis.pid</span></span><br><span class="line"></span><br><span class="line">port 6379  <span class="comment">#默认端口</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span> 127.0.0.1 <span class="comment">#默认绑定本机所有ip地址，为了安全，可以只监听内网ip</span></span><br><span class="line"></span><br><span class="line">timeout 300 <span class="comment">#客户端超时设置，单位为秒</span></span><br><span class="line"></span><br><span class="line">loglevel verbose  <span class="comment">#设置日志级别，支持四个级别：debug、notice、verbose、warning</span></span><br><span class="line"></span><br><span class="line">logfile stdout  <span class="comment">#日志记录方式，默认为标准输出，logs不写文件，输出到空设备/deb/null</span></span><br><span class="line"></span><br><span class="line">logfile <span class="string">"/usr/local/redis/var/redis.log"</span>  <span class="comment">#可以指定日志文件路径</span></span><br><span class="line"></span><br><span class="line">databases 16  <span class="comment">#开启数据库的数量</span></span><br><span class="line"></span><br><span class="line">save 900 1</span><br><span class="line"></span><br><span class="line">save 300 10</span><br><span class="line"></span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
+<p><code>创建本地数据库快照，格式：save * *</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">900秒内，执行1次写操作</span><br><span class="line"></span><br><span class="line">300秒内，执行10次写操作</span><br><span class="line"></span><br><span class="line">60秒内，执行10000次写操作</span><br><span class="line"></span><br><span class="line">rdbcompression yes <span class="comment">#启用数据库lzf压缩，也可以设置为no</span></span><br><span class="line"></span><br><span class="line">dbfilename dump.rdb  <span class="comment">#本地快照数据库名称</span></span><br><span class="line"></span><br><span class="line">dir <span class="string">"/usr/local/redis/var/"</span>   <span class="comment">#本地快照数据库存放目录</span></span><br><span class="line"></span><br><span class="line">requirepass 123456  <span class="comment">#设置redis数据库连接密码</span></span><br><span class="line"></span><br><span class="line">maxclients 10000 <span class="comment">#同一时间最大客户端连接数，0为无限制</span></span><br><span class="line"></span><br><span class="line">maxmemory 1024MB <span class="comment">#设定redis最大使用内存，值要小于物理内存，必须设置</span></span><br><span class="line"></span><br><span class="line">appendonly yes  <span class="comment">#开启日志记录，相当于MySQL的binlog</span></span><br><span class="line"></span><br><span class="line">appendfilename <span class="string">"appendonly.aof"</span>   <span class="comment">#日志文件名，注意：不是目录路径</span></span><br><span class="line"></span><br><span class="line">appendfsync everysec <span class="comment">#每秒执行同步，还有两个参数always、no一般设置为everysec，相当于MySQL事物日志的写方式</span></span><br><span class="line"></span><br><span class="line">:wq! <span class="comment">#保存退出</span></span><br><span class="line"></span><br><span class="line">service redis restart <span class="comment">#重启</span></span><br></pre></td></tr></table></figure>
+<h4 id="6、测试redis数据库"><a href="#6、测试redis数据库" class="headerlink" title="6、测试redis数据库"></a>6、测试redis数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">redis-cli <span class="_">-a</span> 123456  <span class="comment">#连接redis数据库，注意:-a后面跟redis数据库密码</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> name osyunwei.com  <span class="comment">#写数据</span></span><br><span class="line"></span><br><span class="line">get name  <span class="comment">#读取数据</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="comment">#退出redis数据库控制台</span></span><br><span class="line"></span><br><span class="line">redis-benchmark -h 127.0.0.1 -p 6379 -c 1000 -n 100000  <span class="comment">#1000个并发连接，100000个请求，测试127.0.0.1端口为6379的redis服务器性能</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考:<a href="http://www.osyunwei.com/archives/7225.html" target="_blank" rel="external">Linux下Redis服务器安装配置</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/10/install-scrapy-on-centos7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在CentOS7中安装Scrapy框架&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
