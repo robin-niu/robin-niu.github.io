@@ -510,19 +510,16 @@ a.article-title:hover,
   padding: 10px 0;
 }
 .article-entry blockquote {
-  font-family: 'PT Serif', 'STZhongsong', '华文中宋', 'Microsoft Yahei', serif;
-  font-size: 1.4em;
-  margin: 1.4em 20px;
-  text-align: center;
-}
-.article-entry blockquote footer {
-  font-size: 16px;
-  margin: 1.4em 0;
-  font-family: font-sans;
-}
-.article-entry blockquote footer cite:before {
-  content: "—";
-  padding: 0 0.5em;
+  font-family: Microsoft YaHei;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0 0;
+  padding: 0.1em 10px;
+  line-height: 0.1;
+  position: relative;
+  color: #383838;
+  border: 3px dashed #c1c1c1;
+  background: #fff;
 }
 .article-entry .pullquote {
   text-align: left;
