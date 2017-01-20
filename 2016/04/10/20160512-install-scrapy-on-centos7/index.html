@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在CentOS7中安装Scrapy框架 - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍如何在CentOS7上安装Scrapy框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在CentOS7中安装Scrapy框架">
+<meta property="og:url" content="http://robin-niu.github.io/2016/04/10/20160512-install-scrapy-on-centos7/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="介绍如何在CentOS7上安装Scrapy框架">
+<meta property="og:updated_time" content="2016-05-11T23:07:08.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在CentOS7中安装Scrapy框架">
+<meta name="twitter:description" content="介绍如何在CentOS7上安装Scrapy框架">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20160512-install-scrapy-on-centos7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在CentOS7中安装Scrapy框架
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/10/20160512-install-scrapy-on-centos7/" class="article-date">
+  <time datetime="2016-04-10T13:08:37.000Z" itemprop="datePublished">2016-04-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="在CentOS7中安装Scrapy框架"><a href="#在CentOS7中安装Scrapy框架" class="headerlink" title="在CentOS7中安装Scrapy框架"></a>在CentOS7中安装Scrapy框架</h3><h4 id="安装setuptools"><a href="#安装setuptools" class="headerlink" title="安装setuptools"></a>安装setuptools</h4><p><code># wget --no-check-certificate https://bootstrap.pypa.io/ez_setup.py</code><br><code># python ez_setup.py --insecure</code><br><a id="more"></a></p>
+<h4 id="下载安装pip"><a href="#下载安装pip" class="headerlink" title="下载安装pip"></a>下载安装pip</h4><p>pip类似RedHat里面的yum，安装Python包非常方便。本节详细介绍pip的安装、以及使用方法。</p>
+<ol>
+<li><p>下载pip：<br><code># wget &quot;https://pypi.python.org/packages/source/p/pip/pip-1.5.4.tar.gz#md5=834b2904f92d46aaa333267fb1c922bb&quot; --no-check-certificate</code></p>
+</li>
+<li><p>pip安装<br><code># tar -xzvf pip-1.5.4.tar.gz</code><br><code># cd pip-1.5.4</code><br><code># python setup.py install</code></p>
+</li>
+<li><p>安装安装其他包时，提示：【fatal error: Python.h: No such file or directory】<br>解决办法：安装python-dev包，在CentOS中叫<code>python-devel</code>，可以使用下面的命令即可安装python-dev:<br><code># yum install python-devel</code></p>
+</li>
+</ol>
+<h4 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h4><ol>
+<li><p>安装Scrapy依赖包：Twisted<br><code># pip install Twisted</code></p>
+</li>
+<li><p>安装Scrapy<br><code># pip install scrapy</code></p>
+</li>
+<li><p>测试安装<br><code># scrapy version</code><br><code>Scrapy 1.0.5</code></p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scrapy/">Scrapy</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/04/20160604-install-redis-on-Linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Linux下Redis服务器安装配置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/05/20160519-install-Hexo-on-CentOS7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在CentOS7上安装Hexo&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

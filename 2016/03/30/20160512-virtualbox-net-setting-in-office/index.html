@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何在无法获取IP的环境中配置VirtualBox的网络 - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:url" content="http://robin-niu.github.io/2016/03/30/20160512-virtualbox-net-setting-in-office/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta property="og:updated_time" content="2016-05-11T23:07:17.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+<meta name="twitter:description" content="如何在无法获取IP的环境中配置VirtualBox的网络">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20160512-virtualbox-net-setting-in-office" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何在无法获取IP的环境中配置VirtualBox的网络
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/03/30/20160512-virtualbox-net-setting-in-office/" class="article-date">
+  <time datetime="2016-03-30T07:20:57.000Z" itemprop="datePublished">2016-03-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/virtualbox/">virtualbox</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="如何在无法获取IP的环境中配置VirtualBox的网络"><a href="#如何在无法获取IP的环境中配置VirtualBox的网络" class="headerlink" title="如何在无法获取IP的环境中配置VirtualBox的网络"></a>如何在无法获取IP的环境中配置VirtualBox的网络</h2><a id="more"></a>
+<h3 id="背景介绍："><a href="#背景介绍：" class="headerlink" title="背景介绍："></a><em>背景介绍：</em></h3><p>公司网络不能自动获取IP和指定IP设置，因此无法使用<code>Bridge</code>方式访问,所以只能使用<code>NAT</code>方式访问，但是<code>NAT</code>方式又无法实现主机与虚拟机的互通，作为Hadoop分布式环境的构建，各个节点间的互通又是必须的。</p>
+<h3 id="设定方法"><a href="#设定方法" class="headerlink" title="设定方法:"></a><em>设定方法:</em></h3><p>基于后文的解释，设定如下：</p>
+<h4 id="NameNode节点设置两块网卡"><a href="#NameNode节点设置两块网卡" class="headerlink" title="NameNode节点设置两块网卡"></a>NameNode节点设置两块网卡</h4><blockquote>
+<p>网卡1：<code>NAT</code>方式，实现虚拟机通过主机网卡访问外网<br>网卡2：<code>Host-Only</code>方式，实现主机与虚拟机之间互通</p>
+</blockquote>
+<p><strong><em>\</em>注意：*</strong> 虚拟机的<strong>网卡2</strong>的IP地址需要与主机的<code>VirtualBox Host-Only Network</code>的IP地址设定到同一个网段，这样才能保持主机与虚拟机的互通。<br>这里<code>网卡2</code>没有设置为<code>Internal</code>方式的原因是，<code>Internal</code>方式无法与主机互通，操作上会有不方便的地方，故使用<code>Host-Only</code>方式。</p>
+<h4 id="各个Slave节点设置一块网卡"><a href="#各个Slave节点设置一块网卡" class="headerlink" title="各个Slave节点设置一块网卡"></a>各个Slave节点设置一块网卡</h4><blockquote>
+<p>网卡：<code>Host-Only</code>方式，实现主机与虚拟机之间互通</p>
+</blockquote>
+<p>各个Slave节点可以不访问因特网，只需要保持与NameNode节点互通，同时保持与主机Host互通（操作方便）即可。</p>
+<h4 id="详细IP设定如下："><a href="#详细IP设定如下：" class="headerlink" title="详细IP设定如下："></a>详细IP设定如下：</h4><ul>
+<li>Host（主机）：192.168.56.1（默认）</li>
+<li>NameNode：192.168.56.100（手动设定） </li>
+<li>SlaveNode： 192.168.56.101~开始即可（手动设定）<br><em>\</em> Slave节点的IP设置可以具体根据需要的节点数来分配*</li>
+</ul>
+<blockquote>
+<p>关于Hadoop的配置，后续会整理上来<br>配置环境基于本次整理的虚拟机环境（1个NameNode，2个SlaveNode</p>
+</blockquote>
+<hr>
+<p><strong>以下解释摘自<a href="https://www.douban.com/group/topic/15558388/" target="_blank" rel="external">豆瓣网</a></strong></p>
+<h3 id="VirtualBox的提供了四种网络接入模式，它们分别是："><a href="#VirtualBox的提供了四种网络接入模式，它们分别是：" class="headerlink" title="VirtualBox的提供了四种网络接入模式，它们分别是："></a>VirtualBox的提供了四种网络接入模式，它们分别是：</h3><ol>
+<li>NAT 网络地址转换模式(NAT,Network Address Translation) </li>
+<li>Bridged Adapter 桥接模式 </li>
+<li>Internal 内部网络模式 </li>
+<li>Host-only Adapter 主机模式 </li>
+</ol>
+<h3 id="第一种-NAT模式"><a href="#第一种-NAT模式" class="headerlink" title="第一种 NAT模式"></a>第一种 NAT模式</h3><p>NAT模式是最简单的实现虚拟机上网的方式，你可以这样理解：Vhost访问网络的所有数据都是由主机提供的，vhost并不真实存在于网络中，主机与网络中的任何机器都不能查看和访问到Vhost的存在。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  只能单向访问，虚拟机可以通过网络访问到主机，主机无法通过网络访问到虚拟机。</li>
+<li>虚拟机与网络中其他主机的关系：<br>  只能单向访问，虚拟机可以访问到网络中其他主机，其他主机不能通过网络访问到虚拟机。 </li>
+<li>虚拟机与虚拟机之间的关系：<br>  相互不能访问，虚拟机与虚拟机各自完全独立，相互间无法通过网络访问彼此。 </li>
+</ul>
+<h3 id="第二种-Bridged-Adapter模式"><a href="#第二种-Bridged-Adapter模式" class="headerlink" title="第二种 Bridged Adapter模式"></a>第二种 Bridged Adapter模式</h3><p>网桥模式的模拟度相当完美。你可以这样理解，它是通过主机网卡，架设了一条桥，直接连入到网络中了。<br>因此，它使得虚拟机能被分配到一个网络中独立的IP，所有网络功能完全和在网络中的真实机器一样。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  可以相互访问，因为虚拟机在真实网络段中有独立IP，主机与虚拟机处于同一网络段中，彼此可以通过各自IP相互访问。 </li>
+<li>虚拟机于网络中其他主机关系：<br>  可以相互访问，同样因为虚拟机在真实网络段中有独立IP，虚拟机与所有网络其他主机处于同一网络段中，彼此可以通过各自IP相互访问。 </li>
+<li>虚拟机于虚拟机关系：<br>  可以相互访问，原因同上。<br>IP：一般是DHCP分配的，与主机的“本地连接”的IP 是同一网段的。虚拟机就能与主机互相通信。 </li>
+</ul>
+<h3 id="第三种-Internal模式"><a href="#第三种-Internal模式" class="headerlink" title="第三种 Internal模式"></a>第三种 Internal模式</h3><p>内网模式，顾名思义就是内部网络模式，虚拟机与外网完全断开，只实现虚拟机于虚拟机之间的内部网络模式。 </p>
+<ul>
+<li>虚拟机与主机关系：<br>  不能相互访问，彼此不属于同一个网络，无法相互访问。 </li>
+<li>虚拟机与网络中其他主机关系：<br>  不能相互访问，理由同上。 </li>
+<li>虚拟机与虚拟机关系：<br>  可以相互访问，前提是在设置网络时，两台虚拟机设置同一网络名称。如上配置图中，名称为intnet。<br>IP: VirtualBox的DHCP服务器会为它分配IP ，一般得到的是192.168.56.101，因为是从101起分的，也可手工指定192.168.56.*。 </li>
+</ul>
+<h3 id="第四种-Host-only-Adapter模式"><a href="#第四种-Host-only-Adapter模式" class="headerlink" title="第四种 Host-only Adapter模式"></a>第四种 Host-only Adapter模式</h3><p>主机模式，这是一种比较复杂的模式，需要有比较扎实的网络基础知识才能玩转。可以说前面几种模式所实现的功能，在这种模式下，通过虚拟机及网卡的设置都可以被实现。<br>我们可以理解为Vbox在主机中模拟出一张专供虚拟机使用的网卡，所有虚拟机都是连接到该网卡上的，我们可以通过设置这张网卡来实现上网及其他很多功能，比如（网卡共享、网卡桥接等）。<br>虚拟机与主机关系<br>默认不能相互访问，双方不属于同一IP段，host-only网卡默认IP段为192.168.56.X 子网掩码为255.255.255.0，后面的虚拟机被分配到的也都是这个网段。<br>通过网卡共享、网卡桥接等，可以实现虚拟机于主机相互访问。 </p>
+<ul>
+<li>虚拟机与网络主机关系<br>  默认不能相互访问，原因同上，通过设置，可以实现相互访问。 </li>
+<li>虚拟机与虚拟机关系<br>  默认可以相互访问，都是同处于一个网段。 </li>
+<li>虚拟机访问主机 用的是主机的VirtualBox Host-Only                     Network网卡的IP：192.168.56.1 ，不管主机“本地连接”有无红叉，永远通。 </li>
+</ul>
+<p>主机访问虚拟机，用是的虚拟机的网卡3的IP： 192.168.56.101 ，不管主机“本地连接”有无红叉，永远通。<br>虚拟机访问互联网，用的是自己的网卡2， 这时主机要能通过“本地连接”有线上网，（无线网卡不行） </p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/virtualbox/">virtualbox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/31/20160519-Addition-Tools-for-CentOS7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/24/20160405-Deployer-not-found-github/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo发布错误：Deployer not found:github&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

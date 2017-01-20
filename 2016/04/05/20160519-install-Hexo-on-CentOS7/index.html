@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在CentOS7上安装Hexo - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍如何在CentOS7上安装Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在CentOS7上安装Hexo">
+<meta property="og:url" content="http://robin-niu.github.io/2016/04/05/20160519-install-Hexo-on-CentOS7/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="介绍如何在CentOS7上安装Hexo">
+<meta property="og:updated_time" content="2016-05-19T13:09:53.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在CentOS7上安装Hexo">
+<meta name="twitter:description" content="介绍如何在CentOS7上安装Hexo">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20160519-install-Hexo-on-CentOS7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在CentOS7上安装Hexo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/04/05/20160519-install-Hexo-on-CentOS7/" class="article-date">
+  <time datetime="2016-04-05T06:54:11.000Z" itemprop="datePublished">2016-04-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h3><h4 id="准备命令"><a href="#准备命令" class="headerlink" title="准备命令"></a>准备命令</h4><p><code>$ yum -y install gcc make gcc-c++ openssl-devel wget</code></p>
+<h4 id="下载源码及解压"><a href="#下载源码及解压" class="headerlink" title="下载源码及解压"></a>下载源码及解压</h4><p><code>$ wget wget http://nodejs.org/dist/v4.4.1/node-v4.4.1.tar.gz</code><br><code>$ tar -zxvf node-v4.4.1.tar.gz</code></p>
+<h4 id="检查Python版本"><a href="#检查Python版本" class="headerlink" title="检查Python版本"></a>检查Python版本</h4><p><code>$ python --version</code><br>需要检查下Python的版本，必须在2.6及以上才可以，如果低于这个版本我们还需要安装Python<br><a id="more"></a></p>
+<h4 id="编译及安装"><a href="#编译及安装" class="headerlink" title="编译及安装"></a>编译及安装</h4><h5 id="Python设置"><a href="#Python设置" class="headerlink" title="Python设置"></a>Python设置</h5><p><strong>如果Python安装的不是默认目录，或者Python的可执行文件名字不是标准名称，还需要先Export一下Python的安装目录</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHON=/path/to/python</span><br><span class="line"><span class="variable">$PYTHON</span> ./configure</span><br></pre></td></tr></table></figure></p>
+<h5 id="No-Module-named-bz2-出错"><a href="#No-Module-named-bz2-出错" class="headerlink" title="No Module named bz2 出错"></a>No Module named bz2 出错</h5><pre><code class="bash">ImportError: No module named bz2
+make[1]: \*\*\* [/home/robin/Downloads/node-v0.10.31/out/Release/obj/gen/libraries.cc] Error 1
+make[1]: Leaving directory `/home/robin/Downloads/node-v0.10.31/out<span class="string">'
+make: \*\*\* [node] Error 2
+python没有bz2扩展，安装下bz2后，再重新安装下python。  
+
+`$ yum install -y bzip2*`
+`$ cd /usr/dev/Python-2.7.11/`
+`$ ./configure &amp;&amp; make &amp;&amp; make install`
+
+`$ ./configure &amp;&amp; make &amp;&amp; make install`</span>
+</code></pre>
+<p>如果安装配置出现权限不足问题，可使用<code>sudo</code>以root权限安装，如果觉得麻烦，那就是直接<code>su - root</code>以root用户来安装。<br><code>$ sudo ./configure &amp;&amp; sudo make &amp;&amp; sudo make install</code></p>
+<h4 id="验证是否安装配置成功"><a href="#验证是否安装配置成功" class="headerlink" title="验证是否安装配置成功"></a>验证是否安装配置成功</h4><p><code>$ node -v</code></p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>安装完Nodejs框架后，就可以直接使用<code>npm</code>方式来安装HEXO了。</p>
+<p><code>$ npm install -g hexo</code></p>
+<p><strong>-g</strong> 的目的是可以全局使用Hexo</p>
+<h3 id="使用Hexo"><a href="#使用Hexo" class="headerlink" title="使用Hexo"></a>使用Hexo</h3><p>请参照<a href="/2016/03/20/Hexo-usage/">Hexo 使用方法</a></p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/10/20160512-install-scrapy-on-centos7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          在CentOS7中安装Scrapy框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/31/20160519-Addition-Tools-for-CentOS7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">VirtualBox安装增强插件到Centos7虚拟机内失败的解决办法&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

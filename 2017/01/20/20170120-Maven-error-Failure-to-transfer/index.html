@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Maven error “Failure to transfer…” - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="问题描述在import maven project后,执行maven upadte,但是因为速度慢,终止了.在启动时就出现如下错误.
+Description Resource Path Location Type Could not calculate build plan: 
+Failure to transfer org.apache.maven.plugins:maven-compiler-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven error “Failure to transfer…”">
+<meta property="og:url" content="http://robin-niu.github.io/2017/01/20/20170120-Maven-error-Failure-to-transfer/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="问题描述在import maven project后,执行maven upadte,但是因为速度慢,终止了.在启动时就出现如下错误.
+Description Resource Path Location Type Could not calculate build plan: 
+Failure to transfer org.apache.maven.plugins:maven-compiler-">
+<meta property="og:image" content="http://img.robinniu.com/robinniu.com/20170120/maven-error-failure-transfer.png">
+<meta property="og:updated_time" content="2017-01-20T01:57:05.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Maven error “Failure to transfer…”">
+<meta name="twitter:description" content="问题描述在import maven project后,执行maven upadte,但是因为速度慢,终止了.在启动时就出现如下错误.
+Description Resource Path Location Type Could not calculate build plan: 
+Failure to transfer org.apache.maven.plugins:maven-compiler-">
+<meta name="twitter:image" content="http://img.robinniu.com/robinniu.com/20170120/maven-error-failure-transfer.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20170120-Maven-error-Failure-to-transfer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Maven error “Failure to transfer…”
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/01/20/20170120-Maven-error-Failure-to-transfer/" class="article-date">
+  <time datetime="2017-01-20T01:18:27.000Z" itemprop="datePublished">2017-01-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Maven/">Maven</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>在import maven project后,执行maven upadte,但是因为速度慢,终止了.<br>在启动时就出现如下错误.</p>
+<pre><code>Description Resource Path Location Type Could not calculate build plan: 
+Failure to transfer org.apache.maven.plugins:maven-compiler-plugin:pom:2.0.2 
+from http://repo1.maven.org/maven2 was cached in the local repository, 
+resolution will not be reattempted until the update interval of central has elapsed or updates are forced. 
+Original error: Could not transfer artifact org.apache.maven.plugins:maven-compiler-plugin:pom:2.0.2 from/to central (http://repo1.maven.org/maven2): No response received after 60000 ExampleProject Unknown Maven Problem
+</code></pre><a id="more"></a>
+<h5 id="解决方法一"><a href="#解决方法一" class="headerlink" title="解决方法一:"></a>解决方法一:</h5><p>右击项目-&gt;选择maven-&gt;更新项目-&gt;选中”强制更新快照或发布”,点击OK.<br>    In Eclipse: Right click the project-&gt;Maven-&gt;Update Project-&gt;Check checkbox “Force Update of Snapshots/Releases”. Click OK.</p>
+<p><img src="http://img.robinniu.com/robinniu.com/20170120/maven-error-failure-transfer.png" alt="Force update "></p>
+<h5 id="解决方法二"><a href="#解决方法二" class="headerlink" title="解决方法二:"></a>解决方法二:</h5><p>移除下载失败的内容</p>
+<p>For *nix:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ~/.m2  -name &quot;*.lastUpdated&quot; -exec grep -q &quot;Could not transfer&quot; &#123;&#125; \; -print -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure></p>
+<p>For windows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd %userprofile%\.m2\repository</span><br><span class="line">for /r %i in (*.lastUpdated) do del %i</span><br></pre></td></tr></table></figure></p>
+<p>然后maven更新项目,记得选中更新依赖.<br>推荐方法一</p>
+<p>参考自<a href="http://stackoverflow.com/questions/5074063/maven-error-failure-to-transfer?rq=1" target="_blank" rel="external">Stack Overflow</a></p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Failure/">Failure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transfer/">Transfer</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/06/20161206-How-To-Setup-Your-Own-VPN-With-PPTP/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">How To Setup Your Own VPN With PPTP&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
