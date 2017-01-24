@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Solr操作简要手册 - Robin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="记录工作中遇到的操作solr的各种方法. 以备不时之需.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solr操作简要手册">
+<meta property="og:url" content="http://robin-niu.github.io/2017/01/24/20170124-Solr-Operation/index.html">
+<meta property="og:site_name" content="Robin">
+<meta property="og:description" content="记录工作中遇到的操作solr的各种方法. 以备不时之需.">
+<meta property="og:updated_time" content="2017-01-24T16:12:01.010Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solr操作简要手册">
+<meta name="twitter:description" content="记录工作中遇到的操作solr的各种方法. 以备不时之需.">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">Fighting</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/categories">Categories</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://robin-niu.github.io"></form>
+		</div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-20170124-Solr-Operation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Solr操作简要手册
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/01/24/20170124-Solr-Operation/" class="article-date">
+  <time datetime="2017-01-24T15:40:54.000Z" itemprop="datePublished">2017-01-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solr/">Solr</a>
+  </div>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Solr是一个基于Lucene的Java搜索引擎服务器。Solr 提供了层面搜索、命中醒目显示并且支持多种输出格式（包括 XML/XSLT 和 JSON 格式）。它易于安装和配置，而且附带了一个基于 HTTP 的管理界面。Solr已经在众多大型的网站中使用，较为成熟和稳定。Solr 包装并扩展了 Lucene，所以Solr的基本上沿用了Lucene的相关术语。更重要的是，Solr 创建的索引与 Lucene 搜索引擎库完全兼容。通过对 Solr 进行适当的配置，某些情况下可能需要进行编码，Solr 可以阅读和使用构建到其他 Lucene 应用程序中的索引。此外，很多 Lucene 工具（如Nutch、 Luke）也可以使用 Solr 创建的索引。</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="Solr-安装配置"><a href="#Solr-安装配置" class="headerlink" title="Solr 安装配置"></a>Solr 安装配置</h4><p><a href="http://blog.itpub.net/23071790/viewspace-703771/" target="_blank" rel="external">参考</a></p>
+
+      
+    </div>
+    
+    
+      <footer class="article-footer">
+        
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Console/">Console</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Delete/">Delete</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solr/">Solr</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Update/">Update</a></li></ul>
+
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/01/20/20170120-Maven-error-Failure-to-transfer/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Maven error “Failure to transfer…”&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 <a href="https://github.com/robin-niu/" target="_target">Robin.Niu&nbsp;</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by PPOffice
+    </div>
+  </div>
+</footer>
+    
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
